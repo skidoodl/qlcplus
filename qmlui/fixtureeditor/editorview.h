@@ -53,7 +53,11 @@ public:
     EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
     ~EditorView();
 
+    /** Get the unique ID of this editor */
     int id() const;
+
+    /** Get the fixture definition reference being edited */
+    QLCFixtureDef *fixtureDefinition();
 
     /** Get if the definition is user or system */
     bool isUser() const;
@@ -165,14 +169,17 @@ signals:
      * Load & Save
      *********************************************************************/
 public:
-    Q_INVOKABLE bool save();
-    Q_INVOKABLE bool saveAs(QString path);
+    Q_INVOKABLE QString save();
+    Q_INVOKABLE QString saveAs(QString path);
 
     QString fileName();
     void setFilenameFromModel();
 
     /** Get the definition modification flag */
     bool isModified() const;
+
+private:
+    QString checkFixture();
 
 protected slots:
     void setModified(bool modified = true);
